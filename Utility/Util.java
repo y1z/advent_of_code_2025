@@ -3,11 +3,16 @@ package Utility;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Reader;
+import java.nio.CharBuffer;
 import java.util.List;
 
 public final class Util 
 {
 
+    /**
+     * @param path the path to the given file
+     * @return the entire content of a file as a string
+     */
     public static String read_entire_file(String path){
         StringBuilder result = new StringBuilder();
 
@@ -16,7 +21,6 @@ public final class Util
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return result.toString();
     }
@@ -37,4 +41,7 @@ public final class Util
         return result;
     }
 
+    public static CharBuffer convert_to_char_buffer(String s, int start_index){
+        return CharBuffer.wrap(s, start_index, s.length() - start_index);
+    }
 }

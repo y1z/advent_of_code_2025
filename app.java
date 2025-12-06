@@ -1,28 +1,14 @@
-import java.io.File;                  // Import the File class
-import java.io.FileNotFoundException; // Import this class to handle errors
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;             // Import the Scanner class to read text files
-import java.io.BufferedReader;
 import Utility.Util;
+import dayz.day1;
 
 final class App
 {
     public static void main (String args[])
     {
         System.out.println("solving part 1 day 1");
-
-        System.out.println(Math.abs((10 - 20) % 100));
-        System.out.println((10 + 20) % 100);
-        System.out.println((100 + 20) % 100);
-        System.out.println((99 + 1 ) % 100);
-        System.out.println((99 + 1 ) % 100);
-        System.out.println(Math.abs ((0 - 1 ) % 100));
-        System.out.println(Math.abs ((0 - 15 ) % (-100)));
-        System.out.println();
-
-        day_1_part_1();
+        //day1.part_1();
+        day1.part_2_burte_force();
     }
 
     // https://adventofcode.com/2025/day/1
