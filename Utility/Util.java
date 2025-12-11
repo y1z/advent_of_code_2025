@@ -44,4 +44,22 @@ public final class Util
     public static CharBuffer convert_to_char_buffer(String s, int start_index){
         return CharBuffer.wrap(s, start_index, s.length() - start_index);
     }
+
+    public static int indexOf(CharBuffer sequence,char character,int start_index){
+        int result = -1;
+        assert(start_index < sequence.length());
+        for(int i = start_index; i < sequence.length(); ++i  )
+        {
+            if(sequence.get() == character){
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static int first_index_of(CharBuffer sequence, char character){
+        return indexOf(sequence, character, 0);
+    }
+
 }

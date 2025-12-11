@@ -37,7 +37,7 @@ public final class day1 {
             if(current_dial_value == 0){
                 zeros_count++;
             }
-            System.out.println(current_dial_value);
+            //System.out.println(current_dial_value);
         }
 
         System.out.println("total zeros = " + zeros_count);
@@ -73,7 +73,7 @@ public final class day1 {
             if(current_dial_value == 0){
                 zeros_count++;
             }
-            System.out.println(current_dial_value);
+            //System.out.println(current_dial_value);
         }
 
         System.out.println("total zeros = " + zeros_count);
