@@ -3,23 +3,33 @@ import Utility.Util;
 import dayz.*;
 import dayz.day1;
 
+interface PrintDayCaller
+{
+    void callback();
+}
+
 final class App
 {
     public static void main (String args[])
     {
+        format_day_solution(() -> {day1.part_1();}, 1,1);
 
-        System.out.println("mod operations");
-        for (int i = 0; i < 30; i++) {
-            System.out.println(i % 2);
-            
-        }
+        format_day_solution(() -> {day1.part_2_burte_force();}, 1,2);
 
-        System.out.println("solving day 1 part 1\n");
-        day1.part_1();
-        System.out.println("solving day 1 part 2\n");
-        day1.part_2_burte_force();
+        format_day_solution(() -> {day2.part_1();}, 2,1);
 
-        System.out.println("solving day 2 part 1\n");
-        day2.part_1();
+        format_day_solution(() -> {day3.part_1();}, 3,1);
+
     }
+
+    public static void format_day_solution(PrintDayCaller p, int day_num ,int part){
+        StringBuilder message = new StringBuilder();
+        message.append("Solving Day " + day_num);
+        message.append(" Part " + part);
+        System.out.println(message);
+
+        p.callback(); 
+        System.out.println("-------------------------------------------");
+    }
+
 }

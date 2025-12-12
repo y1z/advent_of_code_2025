@@ -76,7 +76,7 @@ public final class day1 {
             //System.out.println(current_dial_value);
         }
 
-        System.out.println("total zeros = " + zeros_count);
+        System.out.println("total zeros = " + zeros_count );
     }
 
     /**
@@ -121,7 +121,7 @@ public final class day1 {
             //System.out.println(current_dial_value);
         }
 
-        System.out.println("part 2 total zeros  = " + zeros_count);
+        System.out.println("part 2 total zeros  = " + zeros_count + "\n");
 
     }
     

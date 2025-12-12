@@ -42,13 +42,6 @@ public final class day2
             ranges[i].upper = Long.parseLong(individual_pair[i], separation_index + 1 , individual_pair[i].length(), 10);
         }
 
-        for(int i = 0; i < individual_pair.length; ++i)
-        {
-            System.out.printf("pair = [%s]\t", individual_pair[i]);
-            System.out.printf("lower = [%d]\t",ranges[i].lower);
-            System.out.printf("upper = [%d]\n",ranges[i].upper);
-        }
-
         long result = 0;
         for(int i = 0; i < ranges.length; ++i)
         {
@@ -62,7 +55,7 @@ public final class day2
                 final boolean is_even = (long) (Math.floor(Math.log10(current_value)) + 1 ) % 2 == 0;
                 if(first_half == second_half && is_even)
                 {
-                    System.out.printf("first half = %d\nSecond half = %d\nWhole number = %d\n\n",first_half,second_half,current_value);
+                    //System.out.printf("first half = %d\nSecond half = %d\nWhole number = %d\n\n",first_half,second_half,current_value);
                     result += current_value;
                 }
                 current_value += 1;
@@ -70,7 +63,7 @@ public final class day2
 
         }
 
-        System.out.printf("\nResult = [%d]\n\n", result);
+        System.out.printf("Result = [%d]\n\n", result);
 
     }
 
