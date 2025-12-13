@@ -83,37 +83,6 @@ public final class day4
             return -1;
         }
 
-        /*
-        final boolean has_8_possible_adjacencies = (x_pos > 1 && y_pos > 1) && (x_pos < input_data.width() && y_pos < input_data.height() );
-
-        if(has_8_possible_adjacencies)
-        {
-            final int directly_above_adjacencie = (main_node_index) - (input_data.width());
-            final int directly_below_adjacencie = (main_node_index) + (input_data.width());
-
-            // right 
-            result = (cs.charAt(main_node_index + 1) == roll) ? result + 1 : result;
-            // left
-            result = (cs.charAt(main_node_index - 1) == roll) ? result + 1 : result;
-
-            //top right
-            result = (cs.charAt(directly_above_adjacencie + 1) == roll) ? result + 1 : result;
-            //top left 
-            result = (cs.charAt(directly_above_adjacencie - 1) == roll) ? result + 1 : result;
-            //top middle 
-            result = (cs.charAt(directly_above_adjacencie) == roll) ? result + 1 : result;
-
-            // bottom right 
-            result = (cs.charAt(directly_below_adjacencie + 1) == roll) ? result + 1 : result;
-            // bottom left 
-            result = (cs.charAt(directly_below_adjacencie - 1) == roll) ? result + 1 : result;
-            // bottom middle 
-            result = (cs.charAt(directly_below_adjacencie) == roll) ? result + 1 : result;
-
-        }
-
-         */
-
         // check the adjencencies in a area
         int relative_x_pos =  -1;
         int relative_y_pos = (main_node_index) - (input_data.width());
@@ -140,13 +109,6 @@ public final class day4
         }
 
         return result;
-    }
-
-    public static String input_without_new_line(String input)
-    {
-        ;
-
-        return input;
     }
     
 }
