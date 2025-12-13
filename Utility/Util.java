@@ -62,4 +62,17 @@ public final class Util
         return indexOf(sequence, character, 0);
     }
 
+    public static int count_instances_of(CharSequence cs, char character){
+        int result = 0;
+        for(int i = 0; i < cs.length(); ++i)
+        {
+            if ( cs.charAt(i) == character )
+            {
+                result += 1;
+            }
+        }
+
+        return result;
+    }
+
 }
