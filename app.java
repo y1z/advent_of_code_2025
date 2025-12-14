@@ -22,6 +22,10 @@ final class App
 
         format_day_solution(() -> {day4.part_1();}, 4,1);
 
+        format_day_solution(() -> {day5.part_1();}, 5,1);
+
+        format_day_solution(() -> {day5.part_2();}, 5,2);
+
     }
 
     public static void format_day_solution(PrintDayCaller p, int day_num ,int part){
