@@ -1,8 +1,6 @@
 package Utility;
 
-
-public final class NumberRange  
-{
+public final class NumberRange {
 
     public NumberRange(long _lower, long _upper)
     {
@@ -18,7 +16,7 @@ public final class NumberRange
 
     public void print()
     {
-        System.out.printf("[lower = %d, upper = %d]\n",this.lower, this.upper);
+        System.out.printf("[lower = %d, upper = %d]\n", this.lower, this.upper);
     }
 
     public boolean is_in_range_inclusive(long input)
@@ -31,32 +29,28 @@ public final class NumberRange
         return (input > lower) && (input < upper);
     }
 
-    public boolean fit_perfectly_within_bound(NumberRange nr){
-        return (this.lower >= nr.lower) && ( this.upper <= nr.upper) ;
+    public boolean fit_perfectly_within_bound(NumberRange nr)
+    {
+        return (this.lower >= nr.lower) && (this.upper <= nr.upper);
     }
 
-    public boolean is_closer_to_upper(long input){
-        final long distance_from_upper = Math.abs((upper - input)) ;
-        final long distance_from_lower = Math.abs((lower - input)) ;
+    public boolean is_closer_to_upper(long input)
+    {
+        final long distance_from_upper = Math.abs((upper - input));
+        final long distance_from_lower = Math.abs((lower - input));
 
         return distance_from_upper <= distance_from_lower;
     }
 
-    public boolean is_closer_to_lower(long input){
+    public boolean is_closer_to_lower(long input)
+    {
         return !is_closer_to_upper(input);
     }
 
-    public long get_range_between_values(){
-        return upper - lower;
-    }
+    public long get_range_between_values() { return upper - lower; }
 
-    public long delta(){
-        return upper - lower;
-    }
-
+    public long delta() { return upper - lower; }
 
     public long lower = 0;
     public long upper = 0;
-
-    
 }
