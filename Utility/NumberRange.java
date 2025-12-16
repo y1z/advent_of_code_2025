@@ -1,6 +1,7 @@
 package Utility;
 
-public final class NumberRange {
+public final class NumberRange
+{
 
     public NumberRange(long _lower, long _upper)
     {

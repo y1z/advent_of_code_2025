@@ -4,7 +4,8 @@ import java.nio.CharBuffer;
 
 import Utility.Util;
 
-final class number_range {
+final class number_range
+{
     public number_range()
     {
         lower = 0;
@@ -20,7 +21,8 @@ final class number_range {
     }
 }
 
-public final class day2 {
+public final class day2
+{
     // https://adventofcode.com/2025/day/2
     public static void part_1()
     {
@@ -29,11 +31,13 @@ public final class day2 {
         final String[] individual_pair = entire_file.split("[,]");
 
         number_range[] ranges = new number_range[individual_pair.length];
-        for (int i = 0; i < ranges.length; ++i) {
+        for (int i = 0; i < ranges.length; ++i)
+        {
             ranges[i] = number_range.init(ranges[i]);
         }
 
-        for (int i = 0; i < individual_pair.length; ++i) {
+        for (int i = 0; i < individual_pair.length; ++i)
+        {
             final int separation_index = individual_pair[i].indexOf('-');
 
             ranges[i].lower = Long.parseLong(individual_pair[i], 0, separation_index, 10);
@@ -41,15 +45,18 @@ public final class day2 {
         }
 
         long result = 0;
-        for (int i = 0; i < ranges.length; ++i) {
+        for (int i = 0; i < ranges.length; ++i)
+        {
             final long delta = ranges[i].upper - ranges[i].lower;
             long current_value = ranges[i].lower;
 
-            for (int j = 0; j < delta; ++j) {
+            for (int j = 0; j < delta; ++j)
+            {
                 final long first_half = get_first_half_of_number(current_value);
                 final long second_half = get_second_half_of_number(current_value);
                 final boolean is_even = (long)(Math.floor(Math.log10(current_value)) + 1) % 2 == 0;
-                if (first_half == second_half && is_even) {
+                if (first_half == second_half && is_even)
+                {
                     // System.out.printf("first half = %d\nSecond half = %d\nWhole number = %d\n\n",first_half,second_half,current_value);
                     result += current_value;
                 }
@@ -68,16 +75,19 @@ public final class day2 {
     {
         final long digits = (long)(Math.floor(Math.log10(number)));
 
-        if (digits == 0) {
+        if (digits == 0)
+        {
             return number;
         }
 
         final long digits_left = digits / 2;
 
-        for (long i = digits; i > digits_left; --i) {
+        for (long i = digits; i > digits_left; --i)
+        {
 
             final long substraction_amount_base = (long)Math.pow(10, i);
-            if (substraction_amount_base > number) {
+            if (substraction_amount_base > number)
+            {
                 continue;
             }
             final long quotient = number / substraction_amount_base;
@@ -91,7 +101,8 @@ public final class day2 {
     {
         final long digits = (long)(Math.floor(Math.log10(number)));
 
-        if (digits == 0) {
+        if (digits == 0)
+        {
             return number;
         }
 
@@ -100,7 +111,8 @@ public final class day2 {
         final long leave_in_extra_digit = (is_odd) ? 1 : 0;
 
         final long digits_to_remove = (digits / 2) - leave_in_extra_digit;
-        for (long i = 0; i <= digits_to_remove; ++i) {
+        for (long i = 0; i <= digits_to_remove; ++i)
+        {
             number = number / 10;
         }
 

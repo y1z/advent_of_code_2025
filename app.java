@@ -3,11 +3,13 @@ import dayz.*;
 import dayz.day1;
 import java.util.List;
 
-interface PrintDayCaller {
+interface PrintDayCaller
+{
     void callback();
 }
 
-final class App {
+final class App
+{
     public static void main(String args[])
     {
         format_day_solution(() -> { day1.part_1(); }, 1, 1);

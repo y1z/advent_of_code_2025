@@ -6,7 +6,8 @@ import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.List;
 
-public final class Util {
+public final class Util
+{
 
     /**
      * @param path the path to the given file
@@ -16,9 +17,12 @@ public final class Util {
     {
         StringBuilder result = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path)))
+        {
             result.append(reader.readAllAsString());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
@@ -33,9 +37,12 @@ public final class Util {
     {
         List<String> result = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path)))
+        {
             result = reader.readAllLines();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return result;
@@ -50,8 +57,10 @@ public final class Util {
     {
         int result = -1;
         assert (start_index < sequence.length());
-        for (int i = start_index; i < sequence.length(); ++i) {
-            if (sequence.get() == character) {
+        for (int i = start_index; i < sequence.length(); ++i)
+        {
+            if (sequence.get() == character)
+            {
                 result = i;
                 break;
             }
@@ -67,8 +76,10 @@ public final class Util {
     public static int count_instances_of(CharSequence cs, char character)
     {
         int result = 0;
-        for (int i = 0; i < cs.length(); ++i) {
-            if (cs.charAt(i) == character) {
+        for (int i = 0; i < cs.length(); ++i)
+        {
+            if (cs.charAt(i) == character)
+            {
                 result += 1;
             }
         }
