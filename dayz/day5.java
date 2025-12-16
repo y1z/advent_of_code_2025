@@ -25,53 +25,60 @@ public final class day5
         ArrayList<NumberRange> number_ranges = new ArrayList<>();
         ArrayList<Long> number_to_check = new ArrayList<>();
 
-
         final String path = "day_5_part_1.txt";
 
-        State state = State.READING_RANGES;
-
-        StringBuilder sb = new StringBuilder();
-
         /// parsing the file
-        try (BufferedReader reader = new BufferedReader(new FileReader(path) )) 
-        {
-            while (state == State.READING_RANGES) 
-            {
-                    final String[] string_ranges = reader.readLine().split("[-]");
-                    if (string_ranges.length < 2)
-                    {
-                        state = State.READING_EVERYTHING_ELSE;
-                        break;
-                    }
-                    else{
-                        number_ranges.add(new NumberRange(Long.parseLong(string_ranges[0]) ,Long.parseLong(string_ranges[1]) ));
-                    }
-            }
-
-            do {
-                    final String temp = reader.readLine();
-                    if(temp == null)
-                    {
-                        state = State.FINISHED;
-                    }
-                    else{
-                        sb.append(temp + "\n");
-                    }
-            }while(state == State.READING_EVERYTHING_ELSE);
-        } catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-
-
-        final String number_to_check_string = (sb.toString());
-        final String[] individual_numbers =  number_to_check_string.split("[\\n]+");
-        for (int i = 0; i < individual_numbers.length; i++) 
-        {
-            number_to_check.add(Long.parseLong(individual_numbers[i]));
-        }
+        parse_file(number_ranges, number_to_check, path);
 
         number_ranges.sort(NumberRangeComparator.comparator);
+        int sorted_numbers_index = 0;
+        while(sorted_numbers_index != -1)
+        {
+            long biggest_delta = -99999;
+            int index_of_biggest_delta = 0;
+            for(int i = sorted_numbers_index; i < number_ranges.size(); ++i)
+            {
+                final long current_delta = number_ranges.get(i).delta();
+                if (current_delta > biggest_delta)
+                {
+                    biggest_delta = current_delta;
+                    index_of_biggest_delta = i;
+                }
+
+            }
+
+            // swap it to the start of the array ( aka were sorted_numbers_index is pointing )
+            if(index_of_biggest_delta != sorted_numbers_index)
+            {
+                final var current_biggest = number_ranges.get(index_of_biggest_delta);
+                final var number_to_swap = number_ranges.get(sorted_numbers_index);
+                final var temp = number_to_swap;
+                number_ranges.set(sorted_numbers_index, current_biggest);
+                number_ranges.set(index_of_biggest_delta, temp);
+
+            }
+
+            final var current_biggest = number_ranges.get(sorted_numbers_index);
+            // remove all elements who fit inside the range
+            for(int i = number_ranges.size() - 1; i > sorted_numbers_index + 1; --i)
+            {
+                final NumberRange current_number = number_ranges.get(i);
+                if (current_biggest.fit_perfectly_within_bound(current_number))
+                {
+                    System.out.printf("removed value = [%d, %d]\n",current_number.lower, current_number.upper );
+                    current_biggest.print();
+                    number_ranges.remove(i);
+                } 
+            }
+
+
+            sorted_numbers_index+=1;
+            if(sorted_numbers_index >= (number_ranges.size() - 1))
+            {
+                sorted_numbers_index = -1;
+            }
+
+        }
 
         for (int i = 0; i < number_to_check.size(); i++) 
         {
@@ -79,15 +86,16 @@ public final class day5
             {
                 result++;
             }
-            
         }
+
 
         System.out.printf("Result = %d\n", result);
 
         return result;
     }
 
-    public static long part_2(){
+    public static long part_2()
+    {
         long result = 0;
         ArrayList<NumberRange> number_ranges = new ArrayList<>();
 
@@ -197,5 +205,60 @@ public final class day5
         return false;
 
     }
+
+    /**
+     * 
+     * @param numbers_range 
+     * @param numbers_to_check Can be null be if is not null are the number needed for the problem of day5
+     * @param file_path were the file to parse is found
+     */
+    public static void parse_file(ArrayList<NumberRange> numbers_range,ArrayList<Long> numbers_to_check,String file_path){
+        State state = State.READING_RANGES;
+        StringBuilder sb = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file_path) )) 
+        {
+            while (state == State.READING_RANGES) 
+            {
+                    final String[] string_ranges = reader.readLine().split("[-]");
+                    if (string_ranges.length < 2)
+                    {
+                        state = State.READING_EVERYTHING_ELSE;
+                        break;
+                    }
+                    else{
+                        numbers_range.add(new NumberRange(Long.parseLong(string_ranges[0]) ,Long.parseLong(string_ranges[1]) ));
+                    }
+            }
+
+            do {
+                    final String temp = reader.readLine();
+                    if(temp == null)
+                    {
+                        state = State.FINISHED;
+                    }
+                    else{
+                        sb.append(temp + "\n");
+                    }
+            }while(state == State.READING_EVERYTHING_ELSE);
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+
+        if(numbers_to_check == null)
+        {
+            return;
+        }
+
+        final String number_to_check_string = (sb.toString());
+        final String[] individual_numbers =  number_to_check_string.split("[\\n]+");
+        for (int i = 0; i < individual_numbers.length; i++) 
+        {
+            numbers_to_check.add(Long.parseLong(individual_numbers[i]));
+        }
+
+    }
     
+
 }
