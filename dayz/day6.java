@@ -2,11 +2,20 @@ package dayz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingFormatWidthException;
 
+import Utility.Util;
+
+/// https://adventofcode.com/2025/day/6
 public final class day6
 {
+    enum MathOperation
+    {
+        ADD,
+        MUL,
+    }
 
-    static final String file_path = "day_6_test_part_1.txt";
+    static final String file_path = "day_6_part_1.txt";
 
     public static long part_1()
     {
@@ -14,20 +23,45 @@ public final class day6
 
         final List<String> lines = Utility.Util.read_every_line(file_path);
         var all_numbers = new ArrayList<ArrayList<Long>>();
-        int last_current_index = 0;
+        var all_operations = new ArrayList<MathOperation>();
 
         for (int i = 0; i < lines.size(); i++)
         {
             final String current_line = lines.get(i);
-            int current_index = current_line.indexOf(' ', 0);
-            var numbers_of_current_line = new ArrayList<Long>();
-            while (current_index != -1)
+
+            if (does_line_have_numbers(current_line))
             {
-                numbers_of_current_line.add(Long.parseLong(current_line, last_current_index, current_index, 10));
-                last_current_index = current_index + 1;
-                current_index = current_line.indexOf(' ', current_index + 1);
+                all_numbers.add(extract_numbers(current_line));
             }
-            System.out.println(numbers_of_current_line);
+            else if (does_line_have_math_operation(current_line))
+            {
+                all_operations = extract_math_operations(current_line);
+            }
+        }
+
+        for (int i = 0; i < all_operations.size(); i++)
+        {
+            final MathOperation math_operation = all_operations.get(i);
+            long colum_result = 0;
+            if (MathOperation.MUL == math_operation)
+            {
+                colum_result = 1;
+            }
+            for (int j = 0; j < all_numbers.size(); j++)
+            {
+                final ArrayList<Long> current_line = all_numbers.get(j);
+                switch (math_operation)
+                {
+                case MathOperation.ADD:
+                    colum_result += current_line.get(i);
+                    break;
+
+                case MathOperation.MUL:
+                    colum_result *= current_line.get(i);
+                    break;
+                }
+            }
+            result += colum_result;
         }
 
         System.out.printf("Result = %d\n", result);
@@ -64,5 +98,60 @@ public final class day6
         }
 
         return -1;
+    }
+
+    public static boolean does_line_have_numbers(CharSequence cs)
+    {
+        return find_next_number(cs, 0) != -1;
+    }
+
+    public static boolean does_line_have_math_operation(CharSequence cs)
+    {
+        return Util.find_next_characters(cs, 0, "+*") != -1;
+    }
+
+    public static ArrayList<Long> extract_numbers(CharSequence cs)
+    {
+        ArrayList<Long> result = new ArrayList<Long>();
+        int current_index = find_next_number(cs, 0);
+        while (current_index != -1)
+        {
+            final int number_start_index = current_index;
+            final int space_start_index = find_next_character(cs, number_start_index, ' ');
+
+            if (space_start_index == -1)
+            {
+
+                result.add(Long.parseLong(cs, number_start_index, cs.length(), 10));
+                current_index = -1;
+                continue;
+            }
+
+            result.add(Long.parseLong(cs, number_start_index, space_start_index, 10));
+
+            current_index = find_next_number(cs, space_start_index);
+        }
+
+        return result;
+    }
+
+    public static ArrayList<MathOperation> extract_math_operations(CharSequence cs)
+    {
+        var result = new ArrayList<MathOperation>();
+        int current_index = Util.find_next_characters(cs, 0, "+*");
+        while (current_index != -1)
+        {
+            if (cs.charAt(current_index) == '+')
+            {
+                result.add(MathOperation.ADD);
+            }
+            else if (cs.charAt(current_index) == '*')
+            {
+                result.add(MathOperation.MUL);
+            }
+            current_index = Util.find_next_characters(cs, current_index + 1, "+*");
+        }
+
+        return result;
     }
 }

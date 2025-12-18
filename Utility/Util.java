@@ -86,4 +86,48 @@ public final class Util
 
         return result;
     }
+
+    /**
+     *
+     * @param cs
+     * @param start_index were to start
+     * @param character the character too look for
+     * @return The index of the character if it exist, if the char does not it return -1
+     */
+    public static int find_next_character(CharSequence cs, int start_index, char character)
+    {
+
+        for (int i = start_index; i < cs.length(); i++)
+        {
+            if (cs.charAt(i) == character)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * @param cs the character sequence the method looks at
+     * @param start_index were to start looking into cs
+     * @param characters_to_look_for The series of characters to look for
+     * @return The index of the first match for a character inside characters_to_look_for
+     */
+    public static int find_next_characters(CharSequence cs, int start_index, CharSequence characters_to_look_for)
+    {
+        for (int i = start_index; i < cs.length(); i++)
+        {
+            final char current_character = cs.charAt(i);
+            for (int j = 0; j < characters_to_look_for.length(); ++j)
+            {
+                if (current_character == characters_to_look_for.charAt(j))
+                {
+                    return i;
+                }
+            }
+        }
+
+        return -1;
+    }
 }

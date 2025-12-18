@@ -28,7 +28,7 @@ public final class day5
         parse_file(number_ranges, number_to_check, path);
 
         number_ranges.sort(NumberRangeComparator.comparator);
-        remove_unnecessary_nums(number_ranges);
+        //remove_unnecessary_nums(number_ranges);
 
         for (int i = 0; i < number_to_check.size(); i++)
         {
