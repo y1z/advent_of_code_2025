@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.List;
+import java.util.ArrayList;
 
 public final class Util
 {
@@ -129,5 +130,51 @@ public final class Util
         }
 
         return -1;
+    }
+
+    /**
+     * 
+     * @param cs the sequence to look at
+     * @param delimiter what character to separate the strings by
+     * @return the string separated by a delimiter PLUS the remainder of the string after the last delimiter.
+     */
+    public static ArrayList<String> delimiter_separated_string_inclusive(CharSequence cs, char delimiter)
+    {
+        return delimiter_separated_string(cs, delimiter, true);
+    }
+
+    /**
+     * 
+     * @param cs the sequence to look at
+     * @param delimiter what character to separate the strings by
+     * @return the string separated by a delimiter MINUS the remainder of the string after the last delimiter.
+     */
+    public static ArrayList<String> delimiter_separated_string_exclusive(CharSequence cs, char delimiter)
+    {
+        return delimiter_separated_string(cs, delimiter, false);
+    }
+
+    public static ArrayList<String> delimiter_separated_string(CharSequence cs, char delimiter, boolean is_inclusive)
+    {
+        ArrayList<String> result = new ArrayList<>();
+
+        int start_index = 0;
+        int end_index = 0;
+        for (int i = 0; i < cs.length(); i++)
+        {
+            if (cs.charAt(i) == delimiter)
+            {
+                end_index = i;
+                result.add(cs.subSequence(start_index, end_index).toString());
+                start_index = end_index + 1;
+            }
+        }
+
+        if (is_inclusive && start_index < cs.length() - 1)
+        {
+            result.add(cs.subSequence(start_index, cs.length()).toString());
+        }
+
+        return result;
     }
 }
