@@ -15,11 +15,6 @@ public final class day7
         final String file_path = "day_7_part_1.txt";
         List<String> lines = Util.read_every_line(file_path);
 
-        for (int i = 0; i < lines.size(); i++)
-        {
-            System.out.println(lines.get(i));
-        }
-
         final int starting_index = Util.find_next_character(lines.get(0), 0, 'S');
         assert (starting_index > -1);
         var ray_indexes = new ArrayList<Integer>();
