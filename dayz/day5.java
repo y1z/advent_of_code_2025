@@ -28,7 +28,7 @@ public final class day5
         parse_file(number_ranges, number_to_check, path);
 
         number_ranges.sort(NumberRangeComparator.comparator);
-        // remove_unnecessary_nums(number_ranges);
+        //remove_unnecessary_nums(number_ranges);
 
         for (int i = 0; i < number_to_check.size(); i++)
         {
@@ -48,12 +48,14 @@ public final class day5
         long result = 0;
         ArrayList<NumberRange> number_ranges = new ArrayList<>();
 
-        final String path = "day_5_test_part_1.txt";
+        final String path = "day_5_part_1.txt";
 
         /// parsing the file
         parse_file(number_ranges, null, path);
 
-        // number_ranges.sort(NumberRangeComparator.comparator);
+        number_ranges.sort(NumberRangeComparator.comparator);
+
+        remove_unnecessary_nums(number_ranges);
 
         int index_of_biggest_delta = -1;
         {
@@ -78,10 +80,22 @@ public final class day5
             number_ranges.set(index_of_biggest_delta, first_element);
         }
 
-        for(int i = 0 ; i < number_ranges.size(); ++i)
+        for (int i = 0; i < number_ranges.size(); ++i)
         {
             remove_redundent_ranges(number_ranges, i);
         }
+
+        for (int i = 0; i < number_ranges.size(); ++i)
+        {
+            remove_redundent_ranges(number_ranges, i);
+        }
+
+        for (int i = 0; i < number_ranges.size(); ++i)
+        {
+            final NumberRange current_range = number_ranges.get(i);
+            result += current_range.delta() + 1;
+        }
+
         System.out.printf("Result = %d\n", result);
         return result;
     }
@@ -217,7 +231,7 @@ public final class day5
     remove_unnecessary_nums(ArrayList<NumberRange> number_ranges)
     {
         int sorted_numbers_index = 0;
-        while (sorted_numbers_index != -1)
+        while (sorted_numbers_index < number_ranges.size() - 1)
         {
             long biggest_delta = -99999;
             int index_of_biggest_delta = 0;
@@ -256,6 +270,8 @@ public final class day5
                     number_ranges.remove(i);
                 }
             }
+
+            sorted_numbers_index++;
         }
     }
 
@@ -273,7 +289,7 @@ public final class day5
                 should_remove = true;
             }
 
-            if ((current_range.upper > biggest_delta_nr.upper) && (current_range.lower <= biggest_delta_nr.upper) && (current_range.lower >= biggest_delta_nr.lower) )
+            if ((current_range.upper > biggest_delta_nr.upper) && (current_range.lower <= biggest_delta_nr.upper) && (current_range.lower >= biggest_delta_nr.lower))
             {
                 biggest_delta_nr.upper = current_range.upper;
                 should_remove = true;
