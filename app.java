@@ -24,11 +24,11 @@ final class App
 
         format_day_solution(() -> { day5.part_1(); }, 5, 1);
 
-        // format_day_solution(() -> {day5.part_2();}, 5,2);
+        format_day_solution(() -> {day5.part_2();}, 5,2);
 
-        format_day_solution(() -> { day6.part_1(); }, 6, 1);
-        format_day_solution(() -> { day7.part_1(); }, 7, 1);
-        format_day_solution(() -> { day8.part_1(); }, 8, 1);
+        //format_day_solution(() -> { day6.part_1(); }, 6, 1);
+        //format_day_solution(() -> { day7.part_1(); }, 7, 1);
+        //format_day_solution(() -> { day8.part_1(); }, 8, 1);
     }
 
     public static void format_day_solution(PrintDayCaller p, int day_num,

@@ -28,7 +28,7 @@ public final class day5
         parse_file(number_ranges, number_to_check, path);
 
         number_ranges.sort(NumberRangeComparator.comparator);
-        //remove_unnecessary_nums(number_ranges);
+        // remove_unnecessary_nums(number_ranges);
 
         for (int i = 0; i < number_to_check.size(); i++)
         {
@@ -53,10 +53,10 @@ public final class day5
         /// parsing the file
         parse_file(number_ranges, null, path);
 
-        number_ranges.sort(NumberRangeComparator.comparator);
+        // number_ranges.sort(NumberRangeComparator.comparator);
 
+        int index_of_biggest_delta = -1;
         {
-            int index_of_biggest_delta = -1;
             long biggest_delta = Long.MIN_VALUE;
             // find the largest delta
             for (int i = 0; i < number_ranges.size(); i++)
@@ -69,8 +69,19 @@ public final class day5
                 }
             }
         }
-        // swap it to first element
 
+        if (index_of_biggest_delta != 0)
+        {
+            final NumberRange first_element = number_ranges.get(0);
+            final NumberRange biggest_element = number_ranges.get(index_of_biggest_delta);
+            number_ranges.set(0, biggest_element);
+            number_ranges.set(index_of_biggest_delta, first_element);
+        }
+
+        for(int i = 0 ; i < number_ranges.size(); ++i)
+        {
+            remove_redundent_ranges(number_ranges, i);
+        }
         System.out.printf("Result = %d\n", result);
         return result;
     }
@@ -244,6 +255,32 @@ public final class day5
                     current_biggest.print();
                     number_ranges.remove(i);
                 }
+            }
+        }
+    }
+
+    public static void
+    remove_redundent_ranges(ArrayList<NumberRange> number_ranges, int index_of_master_range)
+    {
+        NumberRange biggest_delta_nr = number_ranges.get(index_of_master_range);
+        for (int i = number_ranges.size() - 1; i > -1; --i)
+        {
+            final NumberRange current_range = number_ranges.get(i);
+            boolean should_remove = false;
+            if ((current_range.lower < biggest_delta_nr.lower) && (current_range.upper <= biggest_delta_nr.upper) && (current_range.upper > biggest_delta_nr.lower))
+            {
+                biggest_delta_nr.lower = current_range.lower;
+                should_remove = true;
+            }
+
+            if ((current_range.upper > biggest_delta_nr.upper) && (current_range.lower <= biggest_delta_nr.upper) && (current_range.lower >= biggest_delta_nr.lower) )
+            {
+                biggest_delta_nr.upper = current_range.upper;
+                should_remove = true;
+            }
+            if (should_remove)
+            {
+                number_ranges.remove(i);
             }
         }
     }
